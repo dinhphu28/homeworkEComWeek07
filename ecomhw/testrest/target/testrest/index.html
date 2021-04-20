@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Slide</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+    <body>
+        <header>
+            <div id="logo">EC18A002
+                <a id="logo-s">EC Software Excercise</a>
+            </div>
+            <span class="sign">
+                
+                <label for="click">Click here to upload image</label>
+            </span>
+        </header>
+
+        <div class="myfield">
+            <!-- Upload Image Field -->
+            <div class="center">
+                <input type="checkbox" id="click">
+                <div class="content">
+                    <div class="popup-header">
+                        <h2>Upload Image</h2>
+                        <label for="click" class="fas fa-times"></label>                   
+                    </div>
+                    <div class="upload">
+                            <div class="wrapper">
+                                <div class="image">
+                                    <img src="" alt="" />
+                                </div>
+                                <div class="upload-image">
+                                    <div class="icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <div class="text">No file choosen yet!</div>
+                                </div>
+                                <div id="cancel-btn">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                                <div class="file-name">File name here</div>
+                            </div>
+                            <button onclick="defaultBtnActive()" id="custom-btn" class="button">Choose a Image</button>
+                            <form action="https://ec18a002.herokuapp.com/rest/file/upload" method="post" enctype="multipart/form-data">
+                                <input id="default-btn" type="file" name="file" hidden>
+                                <input type="submit" id="submit-btn" class="button"/>
+                            </form>
+                    </div>
+                </div>
+            </div>
+            <script>
+                const wrapper = document.querySelector(".wrapper");
+                const fileName = document.querySelector(".file-name");
+                const defaultBtn = document.querySelector("#default-btn");
+                const customBtn = document.querySelector("#custom-btn");
+                const cancelBtn = document.querySelector("#cancel-btn i");
+                const submitBtn = document.querySelector("#submit-btn");
+
+                const img = document.querySelector(".image img");
+                console.log(img);
+                let regExp = /[0-9a-zA-Z\^\&\'\@\{\}\[\]\,\$\=\!\-\#\(\)\.\%\+\~\_ ]+$/;
+                
+                function defaultBtnActive(){
+                    defaultBtn.click();
+                }
+
+                defaultBtn.addEventListener("change", function(){
+                    const file = this.files[0];
+                    if(file){
+                        const reader = new FileReader();
+                        reader.onload = function(){
+                            const result = reader.result;
+                            img.src = result;
+                            wrapper.classList.add("active");
+                        }
+                        cancelBtn.addEventListener("click", function(){
+                            img.src = "";
+                            wrapper.classList.remove("active");
+                        })
+                        reader.readAsDataURL(file);
+                    }
+                    if(this.value){
+                        let valueStore = this.value.match(regExp);
+                        fileName.textContent = valueStore;
+                    }
+                });
+            </script>
+
+            <div class="slider">
+                <div class="container">
+                    <div class="myslider fade" style="display:block;">
+                        <img src="image-1.jpg" style="width: 100%; height: 100%;" />
+                    </div>
+                </div>
+                <a class="prev" onclick="plusSlide(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlide(1)">&#10095;</a>
+                <div class="dotsbox" style="text-align: center;">
+                    <span class="dot active" onclick="currentSlide(1)"></span>
+                </div>
+            </div>
+
+            <div class="list">
+                <h1>Gallery</h1>
+                <div class="d-flex flex-wrap ml-5" id="imagelist"></div>
+                <script>
+                    $(document).ready(function() {
+                        $.ajax({
+                            type: "GET",
+                            url: "https://ec18a002.herokuapp.com/rest/image/quantity",
+                            success: function(datas) {
+                                var sl = datas;
+                                for (let i = 0; i < sl; i++) {
+                                    $.ajax({
+                                        url: `https://ec18a002.herokuapp.com/rest/image/${i}`,
+                                        type: 'GET',
+                                        success: function(response, status, xhr) {
+                                            var filename = "";
+                                            var disposition = xhr.getResponseHeader('Content-Disposition');
+                                            if (disposition && disposition.indexOf('attachment') !== -1) {
+                                                var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                                                var matches = filenameRegex.exec(disposition);
+                                                if (matches != null && matches[1]) {
+                                                    filename = matches[1].replace(/['"]/g, '');
+                                                }
+                                            }
+                                            console.log(": %o", filename);
+                                            // $('#imageName').append(filename.slice(0, filename.length - 4));
+                                            $('#imagelist').append(`<div class="card" style="width: 20rem;">
+                                        <img class="card-img-top" src="https://ec18a002.herokuapp.com/rest/image/${i}" width="400px" height="450px"/>
+                                            <div class="card-body">
+                                                <h3 class="card-text">${filename.slice(0, filename.length - 4)}</h3>
+                                            </div>
+                                        </div>
+                                    `)
+                                        }
+                                    })
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="index.js"></script>
+    </body>
+</html>

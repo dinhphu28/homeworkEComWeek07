@@ -1,0 +1,356 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    height: 100vh;
+    user-select: none;
+    display: flex;
+  }
+
+header{
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    background: #2c3e58;
+}
+
+#logo{
+    line-height: 60px;
+    margin-left: 40px;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: bold;
+    color: #3498DB;
+}
+
+#logo:hover{
+    color: #ecf0f1;
+}
+
+#logo-s{
+    color: #ecf0f1;
+    margin-left: 5px;
+}
+
+#logo:hover #logo-s{
+    color: #3498DB;
+}
+
+.sign{
+    float: right;
+    line-height: 60px;
+    margin-right: 40px;
+}
+
+.sign label{
+    color: #FFFFFF;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.act{
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    padding: 6px;
+}
+
+.sign label:hover{
+    color: #3498DB;
+    border-color: #3498DB;
+}
+
+.slider{
+    position: absolute;
+    width: 100%;
+    background: #2c3e58;
+    z-index: 1;
+}
+
+.myslider{
+    height: 900px;
+    display: none;
+    overflow: hidden;
+}
+
+.prev, .next{
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 50px;
+    padding: 15px;
+    cursor: pointer;
+    color: #ffffff;
+    transition: 0.1s;
+    user-select: none;
+}
+
+.prev:hover, .next:hover{
+    color: #3498db;
+
+}
+
+.next{
+    right: 0;
+}
+
+.dotsbox{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 20px;
+    cursor: pointer;
+}
+
+.dot{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.active, .dot:hover{
+    border-color: #3498db;
+
+}
+
+.fade{
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fade {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+#animation-img {
+    transform: scale(1.5, 1.5);
+    -webkit-animation-name: zoomin;
+    -webkit-animation-duration: 40s;
+    animation-name: zoomin;
+    animation-duration: 40s;
+}
+
+@-webkit-keyframes zoomin {
+    from {transform: scale(1, 1);}
+    to {transform: scale(1.5, 1.5);}
+}
+
+@keyframes zoomin {
+    from {transform: scale(1, 1);}
+    to {transform: scale(1.5, 1.5);}
+}
+
+@media screen and (max-width: 800px){
+    .myslider{
+        height: 500px;
+    }
+    .txt{
+        line-height: 25px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 50%);
+        -webkit-animation-name: posi2;
+        -webkit-animation-duration: 2s;
+        animation-name: posi2;
+        animation-duration: 2s;
+    }
+    @-webkit-keyframes posi2 {
+        from {top: 35%; }
+        to {top: 50%; }
+    }
+    @keyframes posi2 {
+        from {top: 35%; }
+        to {top: 50%; }
+    }
+    .txt h1{
+        font-size: 40px;
+    }
+    .txt p{
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .txt h1{
+        font-size: 30px;
+    }
+    .sign{
+        margin-right: 20px;
+    }
+    .sign a{
+        font-size: 12px;
+    }
+}
+
+.center, .content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+  }
+  
+#click{
+    display: none;
+  }
+  
+.content{
+    opacity: 0;
+    visibility: hidden;
+    width: 700px;
+    height: 450px;
+    background: white;
+    border-radius: 3px;
+    transition: .2s ease-in;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.4);
+  }
+  
+  #click:checked ~ .content{
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .popup-header{
+    height: 60px;
+    background: #2c3e58;
+    overflow: hidden;
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,.2);
+  }
+  
+  .popup-header h2{
+    color: white;
+    padding-left: 32px;
+    font-weight: normal;
+  }
+  
+  .fa-times{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: #e8f7fc;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .upload{
+    text-align: center;
+    padding: 10px 80px 10px 80px;
+  }
+  .upload .wrapper{
+    position: relative;
+    height: 240px;
+    width: 100%;
+    border-radius: 10px;
+    background: #fff;
+    border: 2px dashed #c2cdda;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .wrapper.active{
+  border: none;
+  }
+  .wrapper .image{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+  .wrapper .image img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  visibility: hidden;
+  }
+  .wrapper .icon{
+  font-size: 100px;
+  color:#3d87f0;
+  }
+  .wrapper .text{
+  font-size: 20px;
+  font-weight: 500;
+  color: #5B5B7B;
+  }
+  .wrapper #cancel-btn i{
+  position: absolute;
+  font-size: 20px;
+  right: 15px;
+  top: 15px;
+  color: #9658fe;
+  cursor: pointer;
+  display: none;
+  }
+  .wrapper.active:hover #cancel-btn i{
+  display: block;
+  }
+  .wrapper #cancel-btn i:hover{
+  color: #e74c3c;
+  }
+
+  .wrapper.active img{
+      visibility: visible;
+  }
+  .wrapper .file-name{
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  padding: 8px 0;
+  font-size: 18px;
+  color: #fff;
+  display: none;
+  background: linear-gradient(135deg,#3a8ffe 0%,#9658fe 100%);
+  }
+  .wrapper.active:hover .file-name{
+  display: block;
+  }
+  .upload .button{
+  margin-top: 10px;
+  left: 50%;
+  transform:translate(50%,0);
+  display: block;
+  width: 50%;
+  height: 50px;
+  border-radius: 25px;
+  border: 2px solid #2c3e58;
+  outline: none;
+  color: #2c3e58;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: white;
+  }
+
+.upload .button:hover{
+    color: white;
+    background-color: #2c3e58;
+}
+
+.upload .button:checked{
+    background-color: #3498DB;
+}
+
+.list{
+    position: relative;
+    top: 900px;
+}

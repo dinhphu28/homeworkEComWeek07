@@ -1,3 +1,9 @@
+## Homepage
+
+https://jvecom11.herokuapp.com
+
+Or: https://ec18a002.herokuapp.com (Always on)
+
 ## API 1
 
 http://mydomain.local/rest/image/quantity
@@ -37,3 +43,30 @@ Or here: https://ec18a002.herokuapp.com/rest/file/upload
 HTTP Method: POST
 
 Request: Body: --Image to upload--
+
+---
+
+## API 4
+
+U can test here: https://ec18a002.herokuapp.com/rest/image/filename/0
+
+HTTP Method: GET
+
+Response: JSON: filename
+
+With 0 is id (same as API 2)
+
+## API 5
+
+U can test here: https://jvecom11.herokuapp.com/rest/file/uploadjson
+
+HTTP Method: POST
+
+Request: Body:
+
+```JSON
+{
+  "title": "Mèo",
+  "src": "89asdfjcAJIG9a"
+ }
+```

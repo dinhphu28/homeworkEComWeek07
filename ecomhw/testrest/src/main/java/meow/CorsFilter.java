@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -33,10 +34,18 @@ public class CorsFilter implements Filter {
             throws IOException, ServletException {
 
                 HttpServletResponse resp = (HttpServletResponse) response;
+                // HttpServletRequest req = (HttpServletRequest) request;
 
                 resp.addHeader("Access-Control-Allow-Origin", "*");
                 resp.addHeader("Access-Control-Allow-Headers", "*");
                 resp.addHeader("Access-Control-Allow-Methods", "*");
+                resp.addHeader("Access-Control-Expose-Headers", "*");
+                // resp.addHeader("Accept-Charset", "*");
+                // resp.setCharacterEncoding("UTF-8");
+
+                // req.setCharacterEncoding("UTF-8");
+                response.setCharacterEncoding("UTF-8");
+                request.setCharacterEncoding("UTF-8");
 
                 chain.doFilter(request, response);
     }

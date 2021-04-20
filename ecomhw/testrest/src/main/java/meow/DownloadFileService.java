@@ -17,7 +17,7 @@ public class DownloadFileService {
 
 	@GET
 	@Path("/{id}")
-	@Produces(MediaType.MULTIPART_FORM_DATA)
+	@Produces("image/jpg")
 	public Response getFile(@PathParam("id") int id) {
         ArrayList<String> filespathArr = getFilesPath();
 
@@ -26,7 +26,6 @@ public class DownloadFileService {
 		response.header("Content-Disposition",
 			"attachment; filename=" + filespathArr.get(id));
 		return response.build();
-
 	}
 
     @GET
@@ -49,5 +48,15 @@ public class DownloadFileService {
         }
 
         return filespath;
+    }
+
+    @GET
+    @Path("/filename/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getFilename(@PathParam("id") int id) {
+        String mm = "";
+        ArrayList<String> filespathArr = getFilesPath();
+        mm = "{ \"filename\": \"" + filespathArr.get(id) + "\" }";
+        return mm;
     }
 }
